@@ -3,6 +3,16 @@
 Reads GDDR6/GDDR6X VRAM memory temperatures from multiple supported NVIDIA GPUs found in a host Linux system.
 These findings are based on reverse engineering of the NVIDIA GPU Linux driver.
 
+Thanks to the greate work of "olealgoritme"!
+
+We wanted to add the feature to send the temperature data directly via Telegraf to InfluxDB.
+That we can Monitore everything on a Grafana Website.
+
+![grafik](https://github.com/AImmd/gddr6/assets/135707290/96db4002-72e4-4f3d-b12f-4d283d32a8c9)
+
+
+#Installation
+
 ## Dependencies
 - libpci-dev 
 ```
@@ -27,7 +37,7 @@ sudo reboot
 ![](https://github.com/olealgoritme/gddr6/blob/master/gddr6_use.gif)
 
 
-The Configuration vor the Telegraf Agent to InfluxDB has to be configred like that:
+The Configuration for the Telegraf Agent to InfluxDB has to be configred like that:
 ```
 [[inputs.exec]]
   commands = ["/usr/local/bin/gddr6a"]
