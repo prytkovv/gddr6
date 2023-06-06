@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# check Requirements prior to install gddr6
+#
+# Version
+# V1.0, 2023-06-06, rene@pilz.cc, initial-version
+
+# check if kernel-switch is set
+if [  `grep iomem=relaxed /etc/default/grub|wc -l` -eq 0 ]
+then
+	echo "ERROR"
+	echo "Please set iomem=relaxed in /etc/default/grub"
+	echo ""
+	exit 1
+fi
+
+if [ ! -d /etc/sudoers.d ]
+then
+	echo "ERROR"
+	echo "Please install sudo"
+	echo ""
+	exit 1
+fi
+
+
+if [ ! -f /usr/bin/nvidia-smi ]
+then
+	echo "ERROR"
+	echo "Please install nvidia-display-driver"
+	echo "" 
+	exit 1
+fi

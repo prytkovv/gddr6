@@ -41,14 +41,14 @@ struct device devices[32];
 // device table
 struct device dev_table[] =
 {
-    { .offset = 0x0000E2A8, .dev_id = 0x2684, .vram = "GDDR6X", .arch = "AD102", .name =  "RTX 4090" },
-    { .offset = 0x0000E2A8, .dev_id = 0x2782, .vram = "GDDR6X", .arch = "AD104", .name =  "RTX 4070 Ti" },
-    { .offset = 0x0000E2A8, .dev_id = 0x2204, .vram = "GDDR6X", .arch = "GA102", .name =  "RTX 3090" },
-    { .offset = 0x0000E2A8, .dev_id = 0x2208, .vram = "GDDR6X", .arch = "GA102", .name =  "RTX 3080 Ti" },
-    { .offset = 0x0000EE50, .dev_id = 0x2484, .vram = "GDDR6",  .arch = "GA104", .name =  "RTX 3070" },
-    { .offset = 0x0000EE50, .dev_id = 0x2488, .vram = "GDDR6",  .arch = "GA104", .name =  "RTX 3070-LHR" },
-    { .offset = 0x0000E2A8, .dev_id = 0x2531, .vram = "GDDR6",  .arch = "GA106", .name =  "RTX A2000" },
-    { .offset = 0x0000E2A8, .dev_id = 0x2571, .vram = "GDDR6",  .arch = "GA106", .name =  "RTX A2000" },
+    { .offset = 0x0000E2A8, .dev_id = 0x2684, .vram = "GDDR6X", .arch = "AD102", .name =  "RTX_4090" },
+    { .offset = 0x0000E2A8, .dev_id = 0x2782, .vram = "GDDR6X", .arch = "AD104", .name =  "RTX_4070_Ti" },
+    { .offset = 0x0000E2A8, .dev_id = 0x2204, .vram = "GDDR6X", .arch = "GA102", .name =  "RTX_3090" },
+    { .offset = 0x0000E2A8, .dev_id = 0x2208, .vram = "GDDR6X", .arch = "GA102", .name =  "RTX_3080_Ti" },
+    { .offset = 0x0000EE50, .dev_id = 0x2484, .vram = "GDDR6",  .arch = "GA104", .name =  "RTX_3070" },
+    { .offset = 0x0000EE50, .dev_id = 0x2488, .vram = "GDDR6",  .arch = "GA104", .name =  "RTX_3070-LHR" },
+    { .offset = 0x0000E2A8, .dev_id = 0x2531, .vram = "GDDR6",  .arch = "GA106", .name =  "RTX_A2000" },
+    { .offset = 0x0000E2A8, .dev_id = 0x2571, .vram = "GDDR6",  .arch = "GA106", .name =  "RTX_A2000" },
 };
 
 
@@ -147,12 +147,12 @@ int main(int argc, char **argv)
         exit(-1);
     }
 
-    for (int i = 0; i < num_devs; i++) {
-        struct device *device = &devices[i];
-        printf("Device: %s %s (%s / 0x%04x) pci=%x:%x:%x\n", device->name, device->vram,
-            device->arch, device->dev_id, device->bus, device->dev, device->func);
-    }
-
+    //for (int i = 0; i < num_devs; i++) {
+    //    struct device *device = &devices[i];
+        //printf("Device: %s %s (%s / 0x%04x) pci=%x:%x:%x\n", device->name, device->vram,
+        //    device->arch, device->dev_id, device->bus, device->dev, device->func);
+        
+    //}
     if ((fd = open(MEM, O_RDWR | O_SYNC)) == -1)
     {
         printf("Can't read memory. If you are root, enable kernel parameter iomem=relaxed\n");
@@ -160,11 +160,9 @@ int main(int argc, char **argv)
     }
 
     cleanup_sig_handler();
-
-
-    while (1)
-    {
-        printf("\rVRAM Temps: |");
+    
+    
+    
         for (int i = 0; i < num_devs; i++) {
             struct device *device = &devices[i];
 
@@ -182,12 +180,12 @@ int main(int argc, char **argv)
             virt_addr = (uint8_t *) map_base + (phys_addr - base_offset);
             read_result = *((uint32_t *) virt_addr);
             temp = ((read_result & 0x00000fff) / 0x20);
-
-            printf(" %3u°c |", temp);
+            printf("gpu_temp,device=%s_%s_(%s/0x%04x)_pci_%x:%x:%x", device->name, device->vram,
+            device->arch, device->dev_id, device->bus, device->dev, device->func);
+            printf(" temp=%u\n", temp);
         }
         fflush(stdout);
-        sleep(1);
-    }
+    
 
     return 0;
 }
