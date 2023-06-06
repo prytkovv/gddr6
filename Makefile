@@ -8,4 +8,4 @@ install:
 	cp gddr6a /usr/local/bin/
 	cp gddr6a.sudoers /etc/sudoers.d/
 update:
-	git fetch
+	git pull
