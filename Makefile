@@ -6,6 +6,7 @@ install:
 	bash checkrequirements
 	cp gddr6 /usr/local/bin/
 	cp gddr6a /usr/local/bin/
-	cp gddr6a.sudoers /etc/sudoers.d/
+	cp gddr6a.sudoers /etc/sudoers.d/gddr6a
+	chown root:root /etc/sudoers.d/gddr6a
 update:
 	git pull
