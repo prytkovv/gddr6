@@ -147,12 +147,6 @@ int main(int argc, char **argv)
         exit(-1);
     }
 
-    //for (int i = 0; i < num_devs; i++) {
-    //    struct device *device = &devices[i];
-        //printf("Device: %s %s (%s / 0x%04x) pci=%x:%x:%x\n", device->name, device->vram,
-        //    device->arch, device->dev_id, device->bus, device->dev, device->func);
-        
-    //}
     if ((fd = open(MEM, O_RDWR | O_SYNC)) == -1)
     {
         printf("Can't read memory. If you are root, enable kernel parameter iomem=relaxed\n");
