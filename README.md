@@ -34,8 +34,6 @@ sudo reboot
 - RTX 3070 (GA104)
 - RTX A2000 (GA106)
 
-![](https://github.com/olealgoritme/gddr6/blob/master/gddr6_use.gif)
-
 
 The Configuration for the Telegraf Agent to InfluxDB has to be configred like that:
 ```
