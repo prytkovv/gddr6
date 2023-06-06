@@ -34,6 +34,7 @@ sudo reboot
 - RTX 3070 (GA104)
 - RTX A2000 (GA106)
 
+## Telegraf
 
 The Configuration for the Telegraf Agent to InfluxDB has to be configred like that:
 ```
