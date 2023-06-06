@@ -8,7 +8,8 @@ Thanks to the greate work of "olealgoritme"!
 We wanted to add the feature to send the temperature data directly via Telegraf to InfluxDB.
 That we can Monitore everything on a Grafana Website.
 
-![grafik](https://github.com/AImmd/gddr6/assets/135707290/96db4002-72e4-4f3d-b12f-4d283d32a8c9)
+![grafik](https://github.com/AImmd/gddr6/assets/135707290/dfa14d69-fc61-49d2-9ca3-ac81f738f4ee)
+
 
 
 #Installation
