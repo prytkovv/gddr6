@@ -25,3 +25,12 @@ sudo reboot
 - RTX A2000 (GA106)
 
 ![](https://github.com/olealgoritme/gddr6/blob/master/gddr6_use.gif)
+
+
+The Configuration vor the Telegraf Agent to InfluxDB has to be configred like that:
+```
+[[inputs.exec]]
+  commands = ["/usr/local/bin/gddr6a"]
+  timeout = "5s"
+  data_format = "influx"
+```  
