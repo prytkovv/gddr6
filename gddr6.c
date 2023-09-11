@@ -157,29 +157,30 @@ int main(int argc, char **argv)
     
     
     
-        for (int i = 0; i < num_devs; i++) {
-            struct device *device = &devices[i];
+    for (int i = 0; i < num_devs; i++) {
+        struct device *device = &devices[i];
 
-            phys_addr = (device->bar0 + device->offset);
-            base_offset = phys_addr & ~(PG_SZ-1);
-            map_base = mmap(0, PG_SZ, PROT_READ | PROT_WRITE, MAP_SHARED, fd, base_offset);
+        phys_addr = (device->bar0 + device->offset);
+        base_offset = phys_addr & ~(PG_SZ-1);
+        map_base = mmap(0, PG_SZ, PROT_READ | PROT_WRITE, MAP_SHARED, fd, base_offset);
 
-            if(map_base == (void *) -1)
-            {
-                if (fd != -1)
-                    close(fd);
-                printf("Can't read memory. If you are root, enable kernel parameter iomem=relaxed\n");
-                PRINT_ERROR();
-            }
-            virt_addr = (uint8_t *) map_base + (phys_addr - base_offset);
-            read_result = *((uint32_t *) virt_addr);
-            temp = ((read_result & 0x00000fff) / 0x20);
-            printf("gpu_temp,device=%s_%s_(%s/0x%04x)_pci_%x:%x:%x", device->name, device->vram,
-            device->arch, device->dev_id, device->bus, device->dev, device->func);
-            printf(" temp=%u\n", temp);
+        if(map_base == (void *) -1)
+        {
+            if (fd != -1)
+                close(fd);
+            printf("Can't read memory. If you are root, enable kernel parameter iomem=relaxed\n");
+            PRINT_ERROR();
         }
-        fflush(stdout);
+        virt_addr = (uint8_t *) map_base + (phys_addr - base_offset);
+        read_result = *((uint32_t *) virt_addr);
+        temp = ((read_result & 0x00000fff) / 0x20);
+        printf("gpu_temp,device=%s_%s_(%s/0x%04x)_pci_%x:%x:%x", device->name, device->vram,
+        device->arch, device->dev_id, device->bus, device->dev, device->func);
+        printf(" temp=%u\n", temp);
+    }
+    fflush(stdout);
     
 
     return 0;
 }
+
